@@ -32,7 +32,6 @@ public class SysUserController {
 	
 	@RequestMapping(value = "/getSysUser", method = RequestMethod.GET)
 	public List<SysUser> getSysUser() {
-		sysUserRepository.
-		return 
+		
 	}
 }
