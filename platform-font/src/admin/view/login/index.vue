@@ -12,6 +12,11 @@ export default {
     return {
       msg: 'login'
     }
+  },
+  created () {
+    this.axios.get('/user').then((response) => {
+      console.log(response.data)
+    })
   }
 }
 </script>
