@@ -1,15 +1,16 @@
-package repository;
+package com.lotto.repository;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import domain.SysUser;
+import com.lotto.domain.SysUser;
 
 @Repository
 public interface SysUserRepository extends JpaRepository<SysUser,Integer>{
-	SysUser findById(Integer id);
+	SysUser findById(Long id);
 	
-	@Query(value="select * from platform.sys_user where user_name=:username and password=:password")
+	@Cacheable
 	SysUser findByUsernameAndPassword(String username, String password);
+	
 }
