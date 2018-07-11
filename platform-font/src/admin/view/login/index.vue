@@ -2,9 +2,9 @@
   <div class="login">
     <h1>{{ msg }}</h1>
     <!-- <router-link to="/home">Go to home</router-link> -->
-    <el-input v-model="username" type="text" placeholder="请输入帐号"></el-input>
-    <el-input v-model="password" type="password" placeholder="请输入密码"></el-input>
-    <el-button type="primary" @click="login()">login</el-button>
+    <el-input class="l-input" v-model="username" type="text" placeholder="请输入帐号"></el-input>
+    <el-input class="l-input" v-model="password" type="password" placeholder="请输入密码"></el-input>
+    <el-button class="l-btn" type="primary" @click="login()">login</el-button>
   </div>
 </template>
 
@@ -13,7 +13,7 @@ export default {
   name: 'login',
   data () {
     return {
-      msg: 'login',
+      msg: '登录',
       username: '',
       password: ''
     }
@@ -39,4 +39,18 @@ export default {
 </script>
 
 <style scoped>
+.login{
+  width: 400px;
+  height: 240px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.l-input{
+  margin-bottom: 10px;
+}
+.l-btn{
+  width: 100%;
+}
 </style>
