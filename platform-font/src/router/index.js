@@ -17,7 +17,17 @@ export default new Router({
     {
       path: '/home',
       name: 'home',
-      component: resolve => require(['@/admin/view/home/index'], resolve)
+      component: resolve => require(['@/admin/view/home/index'], resolve),
+      children: [
+        {
+          path: '/home/page1',
+          component: resolve => require(['@/admin/view/pages/page1'], resolve)
+        },
+        {
+          path: '/home/page2',
+          component: resolve => require(['@/admin/view/pages/page2'], resolve)
+        }
+      ]
     }
   ]
 })
