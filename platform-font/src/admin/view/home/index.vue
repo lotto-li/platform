@@ -9,51 +9,62 @@
 
   <el-container id="theme">
     <el-header id="header">
-
+      <div class="title-text">
+        <span>后台管理系统</span>
+      </div>
+      <div class="user-info">
+        <el-dropdown trigger="click">
+          <span class="el-dropdown-link">用户：{{username}}<i class="el-icon-arrow-down el-icon--right"></i>
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>
+              <div @click="jumpTo('/user/profile')"><span>个人信息</span></div>
+            </el-dropdown-item>
+            <el-dropdown-item>
+              <div @click="jumpTo('/user/changepwd')"><span>修改密码</span></div>
+            </el-dropdown-item>
+            <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
     </el-header>
     <el-container id="content">
       <el-aside width="200px" id="aside">
-        <router-link to="/home/page1">Go to page1</router-link>
-        <router-link to="/home/page2">Go to page2</router-link>
-        <!-- <el-menu
+        <el-menu
           default-active="2"
           class="el-menu-vertical-demo"
-          @open="handleOpen"
-          @close="handleClose"
-          background-color="#545c64"
+          background-color="#364150"
           text-color="#fff"
           active-text-color="#ffd04b">
-          <el-submenu index="1">
+
+          <el-menu-item index="1" @click="jumpTo('/home/page1')">
+            <i class="el-icon-menu"></i>
+            <span slot="title">page1</span>
+          </el-menu-item>
+          <el-menu-item index="2" @click="jumpTo('/home/page2')">
+            <i class="el-icon-menu"></i>
+            <span slot="title">page2</span>
+          </el-menu-item>
+          <el-menu-item index="3" @click="jumpTo('/home/page1')">
+            <i class="el-icon-menu"></i>
+            <span slot="title">page3</span>
+          </el-menu-item>
+          <el-menu-item index="4" @click="jumpTo('/home/page2')">
+            <i class="el-icon-menu"></i>
+            <span slot="title">page4</span>
+          </el-menu-item>
+
+          <el-submenu index="5">
             <template slot="title">
               <i class="el-icon-location"></i>
-              <span>导航一</span>
+              <span>Go to 5</span>
             </template>
-            <el-menu-item-group>
-              <template slot="title">分组一</template>
-              <el-menu-item index="1-1">选项1</el-menu-item>
-              <el-menu-item index="1-2">选项2</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="分组2">
-              <el-menu-item index="1-3">选项3</el-menu-item>
-            </el-menu-item-group>
-            <el-submenu index="1-4">
-              <template slot="title">选项4</template>
-              <el-menu-item index="1-4-1">选项1</el-menu-item>
-            </el-submenu>
+              <el-menu-item index="5-1">选项1</el-menu-item>
+              <el-menu-item index="5-2">选项2</el-menu-item>
+              <el-menu-item index="5-3">选项3</el-menu-item>
           </el-submenu>
-          <el-menu-item index="2">
-            <i class="el-icon-menu"></i>
-            <span slot="title">导航二</span>
-          </el-menu-item>
-          <el-menu-item index="3" disabled>
-            <i class="el-icon-document"></i>
-            <span slot="title">导航三</span>
-          </el-menu-item>
-          <el-menu-item index="4">
-            <i class="el-icon-setting"></i>
-            <span slot="title">导航四</span>
-          </el-menu-item>
-        </el-menu> -->
+
+        </el-menu>
       </el-aside>
       <el-main id="main">
         <router-view></router-view>
@@ -72,12 +83,38 @@ export default {
   data () {
     return {
       msg: 'home',
-      isdestroy: false
+      isdestroy: false,
+      username: ''
     }
   },
   methods: {
     change () {
       this.isdestroy = !this.isdestroy
+    },
+    jumpTo (page) {
+      this.$router.push(page)
+    },
+    logout () {
+      let _this = this
+      this.$confirm('确认退出吗?', '提示', {
+        confirmButtonClass: 'el-button--warning'
+      }).then(() => {
+        // 确认
+        _this.loading = true
+        localStorage.removeItem('access-user')
+        _this.$router.replace('/') // 用go刷新
+        // _this.$router.go({
+        //   path: '/abc',
+        //   replace: true
+        // })
+      })
+    }
+  },
+  mounted () {
+    let user = localStorage.getItem('access-user')
+    if (user) {
+      user = JSON.parse(user)
+      this.username = user.username || ''
     }
   }
 }
@@ -97,5 +134,23 @@ export default {
 }
 #main{
   background-color: #ffffff;
+}
+
+#header .title-text{
+  color: #fff;
+  font-size: 25px;
+  line-height: 60px;
+  display: inline-block;
+  position: absolute;
+  left: 30px;
+}
+#header .user-info{
+  display: inline-block;
+  position: absolute;
+  right: 10px;
+  line-height: 60px;
+}
+#header .el-dropdown-link{
+  color: #fff;
 }
 </style>

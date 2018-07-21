@@ -24,15 +24,18 @@ export default {
   },
   methods: {
     login () {
+      let _this = this
       this.axios.get('/api/getSysUser', {
         params: {
           username: this.username,
           password: this.password
         }
       }).then((response) => {
-        // console.log(response.data[0])
-        if (response.data[0] != null) {
-          this.$router.push({path: '/home'})
+        if (response.data[0] && response.data[0].id) {
+          localStorage.setItem('access-user', JSON.stringify(response.data[0]))
+          _this.$router.push({path: '/home'})
+        } else {
+          _this.$message.error({showClose: true, message: response.errmsg || '登录失败', duration: 2000})
         }
       })
     }
