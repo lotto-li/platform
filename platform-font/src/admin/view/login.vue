@@ -1,7 +1,6 @@
 <template>
   <div class="login">
     <h1>{{ msg }}</h1>
-    <!-- <router-link to="/home">Go to home</router-link> -->
     <el-input class="l-input" v-model="username" type="text" placeholder="请输入帐号"></el-input>
     <el-input class="l-input" v-model="password" type="password" placeholder="请输入密码" @keyup.enter.native="login()"></el-input>
     <div class="psdBox"><el-checkbox v-model="rememberPsd">记住密码</el-checkbox></div>
@@ -33,7 +32,7 @@ export default {
       }).then((response) => {
         if (response.data[0] && response.data[0].id) {
           localStorage.setItem('access-user', JSON.stringify(response.data[0]))
-          _this.$router.push({path: '/home'})
+          _this.$router.push({path: '/index'})
         } else {
           _this.$message.error({showClose: true, message: response.errmsg || '登录失败', duration: 2000})
         }

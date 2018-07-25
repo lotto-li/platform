@@ -24,13 +24,13 @@ module.exports = {
   entry: {
     app: './src/main.js'
   },
-  // //cdn优化
-  // externals:{
-  //   'vue': 'Vue',
-  //   'vue-router': 'VueRouter',
-  //   'element-ui': 'ELEMENT',
-  //   'axios': 'axios'
-  // },
+  //cdn优化
+  externals:{
+    // 'vue': 'Vue',
+    // 'vue-router': 'VueRouter',
+    'element-ui': 'ELEMENT',
+    // 'axios': 'axios'
+  },
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',

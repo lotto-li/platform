@@ -1,31 +1,45 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-// import login from '@/admin/view/login/index'
-// import home from '@/admin/view/home/index'
+// import login from '@/admin/view/login'
+// import index from '@/admin/view/index'
 
 Vue.use(Router)
 
 export default new Router({
-  mode: 'hash',
+  // mode: 'history',
   routes: [
     {
       path: '/',
       name: 'login',
-      component: resolve => require(['@/admin/view/login/index'], resolve)// 使用懒加载
+      component: resolve => require(['@/admin/view/login'], resolve)// 使用懒加载
     },
     {
-      path: '/home',
-      name: 'home',
-      component: resolve => require(['@/admin/view/home/index'], resolve),
+      path: '/index',
+      name: 'index',
+      component: resolve => require(['@/admin/view/index'], resolve),
+      // 重定向
+      // redirect: '/index',
       children: [
         {
-          path: '/home/page1',
-          component: resolve => require(['@/admin/view/pages/page1'], resolve)
+          path: '/index',
+          component: resolve => require(['@/admin/view/homepage/index'], resolve)
         },
         {
-          path: '/home/page2',
-          component: resolve => require(['@/admin/view/pages/page2'], resolve)
+          path: '/shop',
+          component: resolve => require(['@/admin/view/shop/shop'], resolve)
+        },
+        {
+          path: '/order',
+          component: resolve => require(['@/admin/view/shop/order'], resolve)
+        },
+        {
+          path: '/userinfo',
+          component: resolve => require(['@/admin/view/user/userinfo'], resolve)
+        },
+        {
+          path: '/changePwd',
+          component: resolve => require(['@/admin/view/user/changePwd'], resolve)
         }
       ]
     }

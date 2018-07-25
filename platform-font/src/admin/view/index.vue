@@ -1,16 +1,8 @@
 <template>
-
-  <!-- <div class="home">
-    <h1>{{ msg }}</h1>
-    <h2><router-link to="/">Go to login</router-link></h2>
-    <el-button @click="change()">change-lifeCycle</el-button>
-    <lifeCycle v-if="!isdestroy"></lifeCycle>
-  </div> -->
-
   <el-container id="theme">
-    <el-header id="header">
+    <el-header id="theme_header">
       <div class="title-text">
-        <span>后台管理系统</span>
+        <span @click="jumpTo('/index')">后台管理系统</span>
       </div>
       <div class="user-info">
         <el-dropdown trigger="click">
@@ -18,55 +10,57 @@
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>
-              <div @click="jumpTo('/user/profile')"><span>个人信息</span></div>
+              <div @click="jumpTo('/userinfo')"><span>个人信息</span></div>
             </el-dropdown-item>
             <el-dropdown-item>
-              <div @click="jumpTo('/user/changepwd')"><span>修改密码</span></div>
+              <div @click="jumpTo('/changePwd')"><span>修改密码</span></div>
             </el-dropdown-item>
             <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
     </el-header>
-    <el-container id="content">
-      <el-aside width="200px" id="aside">
+    <el-container id="theme_container">
+      <el-aside width="200px" id="theme_aside">
         <el-menu
           default-active="2"
           class="el-menu-vertical-demo"
-          background-color="#364150"
+          @open="handleOpen"
+          @close="handleClose"
+          background-color="#545c64"
           text-color="#fff"
           active-text-color="#ffd04b">
-
-          <el-menu-item index="1" @click="jumpTo('/home/page1')">
-            <i class="el-icon-menu"></i>
-            <span slot="title">page1</span>
-          </el-menu-item>
-          <el-menu-item index="2" @click="jumpTo('/home/page2')">
-            <i class="el-icon-menu"></i>
-            <span slot="title">page2</span>
-          </el-menu-item>
-          <el-menu-item index="3" @click="jumpTo('/home/page1')">
-            <i class="el-icon-menu"></i>
-            <span slot="title">page3</span>
-          </el-menu-item>
-          <el-menu-item index="4" @click="jumpTo('/home/page2')">
-            <i class="el-icon-menu"></i>
-            <span slot="title">page4</span>
-          </el-menu-item>
-
-          <el-submenu index="5">
+          <el-submenu index="0">
             <template slot="title">
               <i class="el-icon-location"></i>
-              <span>Go to 5</span>
+              <span>商城</span>
             </template>
-              <el-menu-item index="5-1">选项1</el-menu-item>
-              <el-menu-item index="5-2">选项2</el-menu-item>
-              <el-menu-item index="5-3">选项3</el-menu-item>
+            <el-menu-item index="0-1" @click="jumpTo('/shop')">
+              <i class="el-icon-menu"></i>
+              <span slot="title">商城</span>
+            </el-menu-item>
+            <el-menu-item index="0-2" @click="jumpTo('/order')">
+              <i class="el-icon-menu"></i>
+              <span slot="title">我的订单</span>
+            </el-menu-item>
           </el-submenu>
-
+          <el-submenu index="1">
+            <template slot="title">
+              <i class="el-icon-location"></i>
+              <span>个人信息</span>
+            </template>
+            <el-menu-item index="1-1" @click="jumpTo('/userinfo')">
+              <i class="el-icon-menu"></i>
+              <span slot="title">个人信息</span>
+            </el-menu-item>
+            <el-menu-item index="1-2" @click="jumpTo('/changePwd')">
+              <i class="el-icon-menu"></i>
+              <span slot="title">修改密码</span>
+            </el-menu-item>
+          </el-submenu>
         </el-menu>
       </el-aside>
-      <el-main id="main">
+      <el-main id="theme_main">
         <router-view></router-view>
       </el-main>
     </el-container>
@@ -76,23 +70,24 @@
 <script>
 import lifeCycle from '@/components/lifeCycle'
 export default {
-  name: 'home',
+  name: 'index',
   components: {
     lifeCycle
   },
   data () {
     return {
-      msg: 'home',
-      isdestroy: false,
       username: ''
     }
   },
   methods: {
-    change () {
-      this.isdestroy = !this.isdestroy
-    },
     jumpTo (page) {
       this.$router.push(page)
+    },
+    handleOpen () {
+
+    },
+    handleClose () {
+
     },
     logout () {
       let _this = this
@@ -124,33 +119,35 @@ export default {
 #theme{
   height: 100%;
 }
-#header{
+#theme_header{
   background-color: #2b3643;
   color: #ffffff;
 }
-#aside{
+#theme_aside{
   background-color: #364150;
   color: #ffffff;
+  text-align: left;
 }
-#main{
+#theme_main{
   background-color: #ffffff;
 }
-
-#header .title-text{
+#theme_header .title-text{
   color: #fff;
   font-size: 25px;
   line-height: 60px;
   display: inline-block;
   position: absolute;
   left: 30px;
+  cursor: pointer;
 }
-#header .user-info{
+#theme_header .user-info{
   display: inline-block;
   position: absolute;
   right: 10px;
   line-height: 60px;
 }
-#header .el-dropdown-link{
+#theme_header .el-dropdown-link{
   color: #fff;
+  cursor: pointer;
 }
 </style>
