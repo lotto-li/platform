@@ -65,4 +65,15 @@ export default {
   margin: auto;
   text-align: left;
 }
+@media screen and (max-width: 900px) {
+  .login {
+    max-width: 400px;
+    width: 100%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .login {
+    box-shadow: none;
+  }
+}
 </style>

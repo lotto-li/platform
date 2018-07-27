@@ -21,7 +21,8 @@
       </div>
     </el-header>
     <el-container id="theme_container">
-      <el-aside width="200px" id="theme_aside">
+      <div class="menuBtn" v-show="!showMenu" @click="cBar()">目录</div>
+      <el-aside width="200px" id="theme_aside" v-show="showMenu">
         <el-menu
           default-active="2"
           class="el-menu-vertical-demo"
@@ -60,7 +61,7 @@
           </el-submenu>
         </el-menu>
       </el-aside>
-      <el-main id="theme_main">
+      <el-main id="theme_main" @click.native="cBar()">
         <router-view></router-view>
       </el-main>
     </el-container>
@@ -76,7 +77,8 @@ export default {
   },
   data () {
     return {
-      username: ''
+      username: '',
+      showMenu: false
     }
   },
   methods: {
@@ -88,6 +90,9 @@ export default {
     },
     handleClose () {
 
+    },
+    cBar () {
+      this.showMenu = !this.showMenu
     },
     logout () {
       let _this = this
@@ -123,10 +128,32 @@ export default {
   background-color: #2b3643;
   color: #ffffff;
 }
+#theme_container .menuBtn{
+  position: fixed;
+  bottom: 50px;
+  left: 5px;
+  width: 50px;
+  height: 50px;
+  background-color: #2b3643;
+  border-radius: 5px;
+  box-shadow: 0 0 4px rgba(0,0,0,.5);
+}
+#theme_container .menuBtn::after{
+  position: absolute;
+  left: 0;
+  top: 13px;
+  content: "";
+  height: 2px;
+  width: 30px;
+  background-color: white;
+  margin-left: 10px;
+  box-shadow: 0 10px 0 0 white,0 20px 0 0 white;
+}
 #theme_aside{
   background-color: #364150;
   color: #ffffff;
   text-align: left;
+  transition: all .5s;
 }
 #theme_main{
   background-color: #ffffff;
@@ -149,5 +176,8 @@ export default {
 #theme_header .el-dropdown-link{
   color: #fff;
   cursor: pointer;
+}
+.hideMenu{
+  width: 0;
 }
 </style>
